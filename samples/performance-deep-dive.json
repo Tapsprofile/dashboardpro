@@ -1,0 +1,13 @@
+{
+  "dashboardTitle": "Latency & Error Analysis",
+  "widgets": [
+    { "id": "line1", "type": "LINE_CHART", "x": "timestamp", "y": "avg(time_taken)", "granularity": "1h" },
+    {
+      "id": "heat1",
+      "type": "HEATMAP",
+      "x": "hour_of_day",
+      "y": "day_of_week",
+      "metric": "count(sc_status=500)"
+    }
+  ]
+}
