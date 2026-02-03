@@ -1,0 +1,177 @@
+{
+  "id": "performance-dashboard",
+  "name": "IIS Performance Analysis Dashboard",
+  "description": "Detailed performance metrics and response time analysis",
+  "providerId": "iis-w3c-logs",
+  "widgets": [
+    {
+      "id": "response-time-trend",
+      "type": "line",
+      "title": "Response Time Trend",
+      "query": {
+        "metricId": "response-time",
+        "aggregation": "avg",
+        "groupBy": "timestamp",
+        "filters": {}
+      },
+      "options": {
+        "color": "#2196F3"
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 4
+      }
+    },
+    {
+      "id": "p95-response-time",
+      "type": "gauge",
+      "title": "P95 Response Time",
+      "query": {
+        "metricId": "response-time",
+        "aggregation": "p95",
+        "filters": {}
+      },
+      "options": {
+        "color": "#FF9800",
+        "min": 0,
+        "max": 10000
+      },
+      "position": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": "response-time-heatmap",
+      "type": "heatmap",
+      "title": "Response Time Heatmap (Hour x Day)",
+      "query": {
+        "metricId": "response-time",
+        "aggregation": "avg",
+        "dimensions": ["hour", "dayOfWeek"],
+        "filters": {}
+      },
+      "options": {},
+      "position": {
+        "x": 0,
+        "y": 4,
+        "width": 6,
+        "height": 5
+      }
+    },
+    {
+      "id": "slowest-endpoints",
+      "type": "bar",
+      "title": "Slowest Endpoints (Avg Response Time)",
+      "query": {
+        "metricId": "response-time",
+        "aggregation": "avg",
+        "groupBy": "uri-stem",
+        "limit": 10,
+        "filters": {}
+      },
+      "options": {
+        "color": "#f44336"
+      },
+      "position": {
+        "x": 6,
+        "y": 4,
+        "width": 6,
+        "height": 5
+      }
+    },
+    {
+      "id": "bandwidth-trend",
+      "type": "area",
+      "title": "Bandwidth Usage Over Time",
+      "query": {
+        "metricId": "bytes-sent",
+        "aggregation": "sum",
+        "groupBy": "timestamp",
+        "filters": {}
+      },
+      "options": {
+        "color": "#4CAF50"
+      },
+      "position": {
+        "x": 0,
+        "y": 9,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": "request-funnel",
+      "type": "funnel",
+      "title": "Request Processing Funnel",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "dimensions": ["status_category"],
+        "filters": {}
+      },
+      "options": {
+        "color": "#9C27B0"
+      },
+      "position": {
+        "x": 0,
+        "y": 13,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "response-time-percentiles",
+      "type": "bar",
+      "title": "Response Time Percentiles",
+      "query": {
+        "metricId": "response-time",
+        "aggregation": "percentiles",
+        "filters": {}
+      },
+      "options": {
+        "color": "#00BCD4"
+      },
+      "position": {
+        "x": 6,
+        "y": 13,
+        "width": 6,
+        "height": 4
+      }
+    }
+  ],
+  "filters": {
+    "parameters": [
+      {
+        "name": "Time Window",
+        "type": "dropdown",
+        "field": "timeWindow",
+        "options": ["Last Hour", "Last 24 Hours", "Last 7 Days", "Last 30 Days"],
+        "defaultValue": "Last 24 Hours"
+      },
+      {
+        "name": "Min Response Time (ms)",
+        "type": "text",
+        "field": "minResponseTime",
+        "defaultValue": "0"
+      },
+      {
+        "name": "Max Response Time (ms)",
+        "type": "text",
+        "field": "maxResponseTime",
+        "defaultValue": "10000"
+      }
+    ],
+    "realTimeEnabled": true,
+    "refreshInterval": 15
+  },
+  "layout": {
+    "columns": 12,
+    "rowHeight": 80,
+    "theme": "light"
+  }
+}
