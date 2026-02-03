@@ -1,0 +1,239 @@
+{
+  "id": "traffic-dashboard",
+  "name": "IIS Traffic Analysis Dashboard",
+  "description": "Traffic patterns, user behavior, and geographic distribution",
+  "providerId": "iis-w3c-logs",
+  "widgets": [
+    {
+      "id": "requests-over-time",
+      "type": "line",
+      "title": "Requests Over Time",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "timestamp",
+        "filters": {}
+      },
+      "options": {
+        "color": "#2196F3"
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": "traffic-by-method",
+      "type": "pie",
+      "title": "Traffic by HTTP Method",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "cs-method",
+        "filters": {}
+      },
+      "options": {},
+      "position": {
+        "x": 0,
+        "y": 4,
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": "unique-ips",
+      "type": "gauge",
+      "title": "Unique IP Addresses",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count_distinct",
+        "dimensions": ["c-ip"],
+        "filters": {}
+      },
+      "options": {
+        "color": "#4CAF50",
+        "min": 0,
+        "max": 1000
+      },
+      "position": {
+        "x": 4,
+        "y": 4,
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": "user-agents",
+      "type": "bar",
+      "title": "Top User Agents",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "cs-user-agent",
+        "limit": 10,
+        "filters": {}
+      },
+      "options": {
+        "color": "#9C27B0"
+      },
+      "position": {
+        "x": 8,
+        "y": 4,
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": "hourly-traffic-heatmap",
+      "type": "heatmap",
+      "title": "Hourly Traffic Pattern (24hr x 7 days)",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "dimensions": ["hour", "dayOfWeek"],
+        "filters": {}
+      },
+      "options": {},
+      "position": {
+        "x": 0,
+        "y": 8,
+        "width": 8,
+        "height": 5
+      }
+    },
+    {
+      "id": "traffic-funnel",
+      "type": "funnel",
+      "title": "User Journey Funnel",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "dimensions": ["page_category"],
+        "filters": {}
+      },
+      "options": {
+        "color": "#FF5722"
+      },
+      "position": {
+        "x": 8,
+        "y": 8,
+        "width": 4,
+        "height": 5
+      }
+    },
+    {
+      "id": "top-referers",
+      "type": "bar",
+      "title": "Top Referring Sites",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "cs-referer",
+        "limit": 15,
+        "filters": {}
+      },
+      "options": {
+        "color": "#00BCD4"
+      },
+      "position": {
+        "x": 0,
+        "y": 13,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "status-code-distribution",
+      "type": "stacked-bar",
+      "title": "Status Code Distribution Over Time",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "sc-status",
+        "dimensions": ["timestamp"],
+        "filters": {}
+      },
+      "options": {},
+      "position": {
+        "x": 6,
+        "y": 13,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "bandwidth-by-content-type",
+      "type": "pie",
+      "title": "Bandwidth by Content Type",
+      "query": {
+        "metricId": "bytes-sent",
+        "aggregation": "sum",
+        "groupBy": "content-type",
+        "filters": {}
+      },
+      "options": {},
+      "position": {
+        "x": 0,
+        "y": 17,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "peak-traffic-hours",
+      "type": "bar",
+      "title": "Peak Traffic Hours",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "hour",
+        "filters": {}
+      },
+      "options": {
+        "color": "#FFC107"
+      },
+      "position": {
+        "x": 6,
+        "y": 17,
+        "width": 6,
+        "height": 4
+      }
+    }
+  ],
+  "filters": {
+    "parameters": [
+      {
+        "name": "Date Range",
+        "type": "date-range",
+        "field": "timestamp",
+        "defaultValue": {
+          "start": "2024-01-01T00:00:00Z",
+          "end": "2024-01-31T23:59:59Z"
+        }
+      },
+      {
+        "name": "Status Code",
+        "type": "dropdown",
+        "field": "sc-status",
+        "options": ["200", "301", "302", "400", "404", "500", "503"],
+        "defaultValue": null
+      },
+      {
+        "name": "User Agent Type",
+        "type": "dropdown",
+        "field": "user_agent_type",
+        "options": ["Browser", "Mobile", "Bot", "Other"],
+        "defaultValue": null
+      }
+    ],
+    "realTimeEnabled": true,
+    "refreshInterval": 20
+  },
+  "layout": {
+    "columns": 12,
+    "rowHeight": 90,
+    "theme": "light"
+  }
+}

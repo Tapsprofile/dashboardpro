@@ -1,0 +1,167 @@
+{
+  "id": "summary-dashboard",
+  "name": "IIS Log Summary Dashboard",
+  "description": "High-level overview of IIS web server performance and activity",
+  "providerId": "iis-w3c-logs",
+  "widgets": [
+    {
+      "id": "total-requests",
+      "type": "gauge",
+      "title": "Total Requests",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "sum",
+        "startTime": null,
+        "endTime": null,
+        "filters": {}
+      },
+      "options": {
+        "color": "#4CAF50",
+        "min": 0,
+        "max": 10000
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 3,
+        "height": 3
+      }
+    },
+    {
+      "id": "error-rate",
+      "type": "gauge",
+      "title": "Error Rate (%)",
+      "query": {
+        "metricId": "error-rate",
+        "aggregation": "rate",
+        "startTime": null,
+        "endTime": null,
+        "filters": {}
+      },
+      "options": {
+        "color": "#f44336",
+        "min": 0,
+        "max": 100
+      },
+      "position": {
+        "x": 3,
+        "y": 0,
+        "width": 3,
+        "height": 3
+      }
+    },
+    {
+      "id": "avg-response-time",
+      "type": "gauge",
+      "title": "Avg Response Time (ms)",
+      "query": {
+        "metricId": "response-time",
+        "aggregation": "avg",
+        "startTime": null,
+        "endTime": null,
+        "filters": {}
+      },
+      "options": {
+        "color": "#2196F3",
+        "min": 0,
+        "max": 5000
+      },
+      "position": {
+        "x": 6,
+        "y": 0,
+        "width": 3,
+        "height": 3
+      }
+    },
+    {
+      "id": "total-bandwidth",
+      "type": "gauge",
+      "title": "Total Bandwidth (MB)",
+      "query": {
+        "metricId": "bytes-sent",
+        "aggregation": "sum",
+        "startTime": null,
+        "endTime": null,
+        "filters": {}
+      },
+      "options": {
+        "color": "#FF9800",
+        "min": 0,
+        "max": 1000000000
+      },
+      "position": {
+        "x": 9,
+        "y": 0,
+        "width": 3,
+        "height": 3
+      }
+    },
+    {
+      "id": "requests-by-status",
+      "type": "pie",
+      "title": "Requests by Status Code",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "sc-status",
+        "limit": 10,
+        "filters": {}
+      },
+      "options": {},
+      "position": {
+        "x": 0,
+        "y": 3,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "top-endpoints",
+      "type": "bar",
+      "title": "Top 10 Endpoints",
+      "query": {
+        "metricId": "request-count",
+        "aggregation": "count",
+        "groupBy": "uri-stem",
+        "limit": 10,
+        "filters": {}
+      },
+      "options": {
+        "color": "#9C27B0"
+      },
+      "position": {
+        "x": 6,
+        "y": 3,
+        "width": 6,
+        "height": 4
+      }
+    }
+  ],
+  "filters": {
+    "parameters": [
+      {
+        "name": "Date Range",
+        "type": "date-range",
+        "field": "timestamp",
+        "defaultValue": {
+          "start": "2024-01-01T00:00:00Z",
+          "end": "2024-01-31T23:59:59Z"
+        }
+      },
+      {
+        "name": "HTTP Method",
+        "type": "dropdown",
+        "field": "method",
+        "options": ["GET", "POST", "PUT", "DELETE", "PATCH"],
+        "defaultValue": null
+      }
+    ],
+    "realTimeEnabled": true,
+    "refreshInterval": 30
+  },
+  "layout": {
+    "columns": 12,
+    "rowHeight": 100,
+    "theme": "light"
+  }
+}

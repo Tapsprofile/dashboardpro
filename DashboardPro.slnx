@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="DashboardPro.API/DashboardPro.API.csproj" />
+  <Project Path="DashboardPro.Core/DashboardPro.Core.csproj" />
+  <Project Path="DashboardPro.Modules.IISLogs/DashboardPro.Modules.IISLogs.csproj" />
+</Solution>
