@@ -8,6 +8,9 @@ obj/
 .vscode/
 *.log
 
+# Allow sample data
+!SampleData/*.log
+
 # Node
 node_modules/
 dist/
