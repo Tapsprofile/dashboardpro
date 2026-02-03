@@ -1,0 +1,15 @@
+{
+  "dashboardTitle": "IIS System Health",
+  "widgets": [
+    { "id": "kpi1", "type": "KPI_CARD", "metric": "count(*)", "label": "Total Requests" },
+    {
+      "id": "gauge1",
+      "type": "GAUGE",
+      "metric": "avg(time_taken)",
+      "label": "Avg Latency",
+      "min": 0,
+      "max": 1000
+    },
+    { "id": "pie1", "type": "PIE_CHART", "dimension": "sc_status", "label": "Status Distribution" }
+  ]
+}

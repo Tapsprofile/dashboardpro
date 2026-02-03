@@ -1,0 +1,12 @@
+{
+  "dashboardTitle": "Traffic & Security Audit",
+  "widgets": [
+    { "id": "funnel1", "type": "FUNNEL", "steps": ["Total", "Successful", "Converted"] },
+    {
+      "id": "table1",
+      "type": "DATA_TABLE",
+      "columns": ["c_ip", "cs_uri_stem", "sc_status", "time_taken"],
+      "sort": "time_taken DESC"
+    }
+  ]
+}
